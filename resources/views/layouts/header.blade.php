@@ -83,7 +83,7 @@
                                 <li class="d-none d-md-block nav-item dropdown">
                                     <a id="navbarDropdown3" class="nav-link text-white dropdown-toggle" href="#" role="button"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        کالج :‌
+                                        دانشکده :‌
                                         {{ session('current_college', 'انتخاب نشده') }}
                                     </a>
                                         <div class="dropdown-menu dropdown-menu-start text-center" aria-labelledby="navbarDropdown3">
