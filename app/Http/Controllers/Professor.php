@@ -16,13 +16,14 @@ class Professor extends Controller
     public function index()
     {
        // dd( Auth::check());
-        $currentCollegeID = Auth::user()->college_id;
-        $professors = ModelsProfessor::where('college_id', $currentCollegeID)->latest()->paginate(10);
+       $currentCollegeID =session('current_college_id');
+       $professors = ModelsProfessor::where('college_id', $currentCollegeID)->latest()->paginate(10);
         return view('professors.index', compact('professors'));
     }
     public function store(Request $request)
     {
-        $currentCollegeID = Auth::user()->college_id;
+        $currentCollegeID =session('current_college_id');
+     //   dd($currentCollegeID);
         $collegeID = College::where('id', $currentCollegeID)->first()->id;
     
         $validated = $request->validate([

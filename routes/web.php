@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/change-password', [ChangePassword::class, 'changePassword']);
         Route::resource('/colleges', CollegeController::class);
         Route::get('/colleges/set-college/{college}', [CollegeController::class, 'setCollege'])->name('colleges.set-college');
+        
     });
 
     Route::middleware('educational_supervisor')->group(function () {
@@ -91,6 +92,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
         Route::resource('/lessons', Lesson::class)->only('index');
         Route::resource('/professors', Professor::class)->only('index');
+      //  Route::resource('/colleges', CollegeController::class)->only('index');
         Route::resource('/colleges', CollegeController::class)->only('index');
     });
 

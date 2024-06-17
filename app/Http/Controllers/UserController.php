@@ -13,6 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        
         $user=User::paginate(10);
         return view('users.index',compact('user'));
     }
@@ -31,6 +32,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+       // dd(session('current_college_id'));
         
         $roleConvert = [1 => 'educational_supervisor', 2 => 'faculty_head', 3 => 'professor'];
       User::create([

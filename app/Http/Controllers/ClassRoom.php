@@ -20,7 +20,7 @@ class ClassRoom extends Controller
      */
     public function index()
     {
-        $currentCollegeID = Auth::user()->college_id;
+        $currentCollegeID =session('current_college_id');
         $currentTermID = session('current_term_id'); // Assuming the current term ID is stored in the session
 
         $classrooms = ModelsClassroom::where('college_id', $currentCollegeID)
@@ -52,7 +52,7 @@ class ClassRoom extends Controller
      */
     public function store(Request $request)
     {
-        $currentCollegeID = Auth::user()->college_id;
+        $currentCollegeID =session('current_college_id');
         $currentTermID = session('current_term_id'); // Assuming the current term ID is stored in the session
 
         if (!($request->has('lesson_id') || $request->has('professor_id') || $request->has('status') || $request->has('eg_id') || $request->has('entry_id')))
@@ -120,7 +120,7 @@ class ClassRoom extends Controller
 
     public function filter(Request $request)
     {
-        $currentCollegeID = Auth::user()->college_id;
+        $currentCollegeID =session('current_college_id');
         $currentTermID = session('current_term_id'); // Assuming the current term ID is stored in the session
 
         $classrooms = ModelsClassroom::where('college_id', $currentCollegeID)

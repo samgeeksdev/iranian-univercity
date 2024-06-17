@@ -69,19 +69,18 @@ class CollegeController extends Controller
         }
     }
 
-    public function setCollege()
+    public function setCollege(Request $request, $collegeId)
     {
-        $currentUser = Auth::user();
-        $currentCollege = $currentUser->college; // فرض می‌کنیم رابطه college در مدل User تعریف شده است
- 
-        if ($currentCollege) {
-            request()->session()->put('current_college', $currentCollege->name);
-            request()->session()->put('current_college_id', $currentCollege->id);
+        $college = College::find($collegeId);
+
+        if ($college) {
+            $request->session()->put('current_college', $college->name);
+            $request->session()->put('current_college_id', $college->id);
         } else {
-            request()->session()->put('current_college', 'انتخاب نشده');
-            request()->session()->put('current_college_id', null);
+            $request->session()->put('current_college', 'انتخاب نشده');
+            $request->session()->put('current_college_id', null);
         }
- 
+
         return back();
     }
-}
+   }

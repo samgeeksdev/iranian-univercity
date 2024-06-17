@@ -16,7 +16,7 @@ class Entry extends Controller
      */
     public function index()
     {
-        $currentCollegeID = Auth::user()->college_id;
+        $currentCollegeID =session('current_college_id');
         $entries = ModelsEntry::where('college_id', $currentCollegeID)
                               ->orderBy('year')
                               ->paginate(10);
@@ -36,7 +36,7 @@ class Entry extends Controller
      */
     public function store(Request $request)
     {
-        $currentCollegeID = Auth::user()->college_id;
+        $currentCollegeID =session('current_college_id');
 
         $validated = $request->validate([
             'year' => ['required', 'integer', 'unique:entries,year,NULL,id,college_id,' . $currentCollegeID],

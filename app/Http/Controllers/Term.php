@@ -19,7 +19,7 @@ class Term extends Controller
     public function store(Request $request)
     {
 
-        $currentCollegeID = Auth::user()->college_id;
+        $currentCollegeID =session('current_college_id');
         $validated = $request->validate([
             'number' => ['required', 'integer', 'unique:terms,number'],
         ]);
@@ -36,7 +36,7 @@ class Term extends Controller
 
     public function index()
     {
-        $currentCollegeID = Auth::user()->college_id;
+        $currentCollegeID =session('current_college_id');
 
         //  $terms = DB::table('terms')->orderBy('number')->paginate(10);
         $terms = ModelsTerm::where('college_id', $currentCollegeID)->paginate(10);

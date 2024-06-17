@@ -77,13 +77,15 @@
 
                                 </li>
 
+
+
                                 <li class="d-none d-md-block nav-item dropdown">
                                     <a id="navbarDropdown3" class="nav-link text-white dropdown-toggle" href="#" role="button"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         کالج :‌
                                         {{ session('current_college', 'انتخاب نشده') }}
                                     </a>
-                                    @if(Auth::user()->role == 'admin')
+                                    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'professor')
                                         <div class="dropdown-menu dropdown-menu-start text-center" aria-labelledby="navbarDropdown3">
                                             @foreach ($colleges as $college)
                                                 <a href="{{ route('colleges.set-college', ['college' => $college->id]) }}"
@@ -103,6 +105,13 @@
                                         </div>
                                     @endif
                                 </li>
+
+
+
+
+
+
+
                                 <div class="vr text-white mx-2 d-none d-md-block"></div>
                                 <li class="nav-item dropdown text-white nav-link">
                                     <i class="bi bi-person"></i>
@@ -307,8 +316,9 @@
                                             <li><a href="{{ route('change-password') }}"
                                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white my-2"><i
                                                         class="bi bi-lock"></i>تغییر رمز عبور</a></li>
-                                            <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); 
-                                                                                document.getElementById('logout-form').submit();"
+                                            <li><a href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault(); 
+                                                                                                                document.getElementById('logout-form').submit();"
                                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white my-2"><i
                                                         class="bi bi-door-open"></i>خروج</a></li>
                                         </ul>
@@ -327,7 +337,7 @@
 
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                                             document.getElementById('logout-form').submit();">
                                             خروج
                                         </a>
 

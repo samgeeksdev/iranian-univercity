@@ -22,8 +22,10 @@ class Login extends Controller
             $request->session()->regenerate();
 
             // فراخوانی متد setCollege برای تنظیم current_college در سشن
-            app('App\Http\Controllers\CollegeController')->setCollege();
-
+            $user = Auth::user();
+            $collegeId = $user->college_id;
+            app('App\Http\Controllers\CollegeController')->setCollege($request, $collegeId);
+        
             return redirect()->route('dashboard')->with('login-success', 'ورود موفقیت آمیز بود. خوش آمدید!');
         }
 

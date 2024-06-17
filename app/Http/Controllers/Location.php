@@ -45,12 +45,12 @@ class Location extends Controller
             'number' => ['required', 'integer', 'unique:locations,number'],
         ]);
         $collegeName =Auth::user()->collage_name;
-        $collegeID = College::where('name', $collegeName)->first()->id;
+        $currentCollegeID =session('current_college_id');
 
 
         if (ModelsLocation::create([
             'number'=>$validated['number'],
-            'college_id'=> $collegeID
+            'college_id'=> $currentCollegeID
 
         ]))
             return back()->with('success', 'مکان برگزاری با موفقیت اضافه شد!');

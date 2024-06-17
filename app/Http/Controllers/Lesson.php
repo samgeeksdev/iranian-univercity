@@ -17,17 +17,17 @@ class Lesson extends Controller
      */
     public function index()
     {
-        $currentCollegeID = Auth::user()->college_id;
+        $currentCollegeID =session('current_college_id');
         $currentTermID = session('current_term_id'); // Assuming the current term ID is stored in the session
-    
+
         $lessons = ModelsLesson::where('college_id', $currentCollegeID)
-                                ->where('term_id', $currentTermID)
-                                ->latest()
-                                ->paginate(10);
-    
+            ->where('term_id', $currentTermID)
+            ->latest()
+            ->paginate(10);
+
         return view('lessons.index', compact('lessons'));
     }
- 
+
     /**
      * Show the form for creating a new resource.
      */
@@ -48,7 +48,7 @@ class Lesson extends Controller
             'name' => ['required'],
             'code' => ['nullable', 'string'],
             'group' => ['nullable'],
-         ]);
+        ]);
 
         if (
             ModelsLesson::create([
