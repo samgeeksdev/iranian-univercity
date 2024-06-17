@@ -78,6 +78,7 @@
                                 </li>
 
 
+                                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'professor')
 
                                 <li class="d-none d-md-block nav-item dropdown">
                                     <a id="navbarDropdown3" class="nav-link text-white dropdown-toggle" href="#" role="button"
@@ -85,7 +86,6 @@
                                         کالج :‌
                                         {{ session('current_college', 'انتخاب نشده') }}
                                     </a>
-                                    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'professor')
                                         <div class="dropdown-menu dropdown-menu-start text-center" aria-labelledby="navbarDropdown3">
                                             @foreach ($colleges as $college)
                                                 <a href="{{ route('colleges.set-college', ['college' => $college->id]) }}"

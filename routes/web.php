@@ -93,7 +93,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('/lessons', Lesson::class)->only('index');
         Route::resource('/professors', Professor::class)->only('index');
       //  Route::resource('/colleges', CollegeController::class)->only('index');
-        Route::resource('/colleges', CollegeController::class)->only('index');
+      Route::get('/colleges/set-college/{college}', [CollegeController::class, 'setCollege'])->name('colleges.set-college');
     });
 
 }); // اینجا گروه auth بسته می‌شود
