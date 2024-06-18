@@ -80,14 +80,7 @@
                                         <option value="چرخشی" {{ old('status') == 'چرخشی' ? 'selected' : ' ' }}>چرخشی</option>
                                     </select>
 
-                                    <select name="eg_id[{{ $week_day_key . '-' . $time->id }}]" class="form-select form-select-sm mySelect2 rounded-0 border-0 js-example-basic-single">
-                                        <option selected disabled></option>
-
-                                        @foreach (\App\Models\EducationalGroup::latest()->get() as $educational_group)
-                                            <option value="{{ $educational_group->id }}" {{ old('eg_id') == $educational_group->id ? 'selected' : ' ' }}>{{ $educational_group->name }}</option>
-                                        @endforeach
-                                    </select>
-
+                
                                     <select name="entry_id[{{ $week_day_key . '-' . $time->id }}]" class="form-select form-select-sm mySelect2 rounded-0 border-0 js-example-basic-single">
                                         <option selected disabled></option>
 

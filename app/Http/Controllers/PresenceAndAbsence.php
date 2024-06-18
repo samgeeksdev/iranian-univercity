@@ -78,15 +78,19 @@ class PresenceAndAbsence extends Controller
 
     public function history()
     {
-        $classrooms = Term::find(session('current_term_id'))
-            ->classrooms()
+        $term = Term::find(session('current_term_id'));
+    
+        if (!$term || $term->classrooms()->count() == 0) {
+            return redirect()->route('dashboard')->with('error', 'شما کلاس تعریف نکرده‌اید.');
+        }
+    
+        $classrooms = $term->classrooms()
             ->orderBy('week_day')
             ->orderBy('time_period_id')
             ->get();
-
+    
         return view('presence-and-absence.history', compact('classrooms'));
     }
-
     public function preview()
     {
         $classrooms = Term::find(session('current_term_id'))

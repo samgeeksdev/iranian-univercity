@@ -14,7 +14,8 @@
         "laravelcollective/html": "^6.4",
         "misterspelik/laravel-pdf": "^2.1",
         "morilog/jalali": "3.*",
-        "phpoffice/phpword": "dev-master",
+        "phpoffice/phpword": "^1.2",
+        "shuchkin/simplexlsxgen": "^1.4",
         "spatie/laravel-permission": "*"
     },
     "require-dev": {

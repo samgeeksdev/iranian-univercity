@@ -60,7 +60,7 @@
                                             <a href="{{ route('terms.set-term', ['term' => $term->id]) }}"
                                                 class="dropdown-item">{{ $term->number }}</a>
                                         @endforeach
-
+                                        @if(Auth::user()->role == 'admin')
                                         <div>
                                             <hr class="dropdown-divider">
                                         </div>
@@ -73,12 +73,13 @@
                                             <i class="bi bi-plus-lg"></i>
                                             جدید
                                         </a>
+                                        @endif
                                     </div>
 
                                 </li>
 
 
-                                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'professor')
+                                @if(Auth::user()->role == 'admin' ||  Auth::user()->role == 'educational_supervisor')
 
                                 <li class="d-none d-md-block nav-item dropdown">
                                     <a id="navbarDropdown3" class="nav-link text-white dropdown-toggle" href="#" role="button"
@@ -117,6 +118,8 @@
                                     <i class="bi bi-person"></i>
                                     نام کاربری : {{ Auth::user()->username }}
                                 </li>
+
+
                                 <div class="vr text-white mx-2 d-none d-md-block"></div>
                                 <li class="d-md-none mb-1">
                                     <button
@@ -132,14 +135,17 @@
                                                         class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white my-2">{{ $term->number }}</a>
                                                 </li>
                                             @endforeach
-
+                                            @if(Auth::user()->role == 'admin')
                                             <li><a href="{{ route('terms.index') }}"
                                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white my-2"></i><i
                                                         class="bi bi-pencil ms-1" style="font-size: 0.8rem"></i>عملیات</a></li>
+
                                             <li><a href="{{ route('terms.create') }}"
                                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white my-2"></i><i
                                                         class="bi bi-plus-lg"></i>جدید</a></li>
                                         </ul>
+
+@endif
                                     </div>
                                 </li>
                                 <li class="d-md-none mb-1">

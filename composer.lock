@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0778fa192eea4a32938ed169ff93431",
+    "content-hash": "0f35d495e03f73ce9c982199a9a99492",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -3055,16 +3055,16 @@
         },
         {
             "name": "phpoffice/phpword",
-            "version": "dev-master",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PHPWord.git",
-                "reference": "8b891bb6842dd383f679b47898fad0b7c181f325"
+                "reference": "e76b701ef538cb749641514fcbc31a68078550fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PHPWord/zipball/8b891bb6842dd383f679b47898fad0b7c181f325",
-                "reference": "8b891bb6842dd383f679b47898fad0b7c181f325",
+                "url": "https://api.github.com/repos/PHPOffice/PHPWord/zipball/e76b701ef538cb749641514fcbc31a68078550fa",
+                "reference": "e76b701ef538cb749641514fcbc31a68078550fa",
                 "shasum": ""
             },
             "require": {
@@ -3094,7 +3094,6 @@
                 "ext-xsl": "Allows applying XSL style sheet to headers, to main document part, and to footers of an OOXML template",
                 "ext-zip": "Allows writing OOXML and ODF"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -3159,9 +3158,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PHPWord/issues",
-                "source": "https://github.com/PHPOffice/PHPWord/tree/master"
+                "source": "https://github.com/PHPOffice/PHPWord/tree/1.2.0"
             },
-            "time": "2024-01-23T17:15:27+00:00"
+            "time": "2023-11-30T11:22:23+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -4025,6 +4024,59 @@
                 }
             ],
             "time": "2023-12-11T16:03:32+00:00"
+        },
+        {
+            "name": "shuchkin/simplexlsxgen",
+            "version": "1.4.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/shuchkin/simplexlsxgen.git",
+                "reference": "016bdc0f6d558a843a54b978749fa30ead7a834f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/shuchkin/simplexlsxgen/zipball/016bdc0f6d558a843a54b978749fa30ead7a834f",
+                "reference": "016bdc0f6d558a843a54b978749fa30ead7a834f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-zlib": "*",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/SimpleXLSXGen.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sergey Shuchkin (SMSPILOT)",
+                    "email": "sergey.shuchkin@gmail.com",
+                    "homepage": "https://shuchkin.ru/"
+                }
+            ],
+            "description": "Export data to Excel XLSx file. PHP XLSX generator.",
+            "homepage": "https://github.com/shuchkin/simplexlsxgen",
+            "keywords": [
+                "backend",
+                "creator",
+                "excel",
+                "generator",
+                "php",
+                "writer",
+                "xlsx"
+            ],
+            "support": {
+                "issues": "https://github.com/shuchkin/simplexlsxgen/issues",
+                "source": "https://github.com/shuchkin/simplexlsxgen/tree/1.4.11"
+            },
+            "time": "2024-02-07T10:26:09+00:00"
         },
         {
             "name": "spatie/laravel-permission",
@@ -9009,14 +9061,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "phpoffice/phpword": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.2.0"
 }

@@ -52,7 +52,7 @@
             </li>
         @endif
 
-        @if(Auth::user()->role == 'educational_supervisor')
+        @if(Auth::user()->role == 'educational_supervisor' || Auth::user()->role == 'admin')
             <li class="mb-1">
                 <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white"
                     data-bs-toggle="collapse" data-bs-target="#lessons-collapse" aria-expanded="false">
@@ -65,6 +65,7 @@
                                 class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white my-2"><i
                                     class="bi bi-chevron-left"></i>همه</a></li>
                         <li><a href="{{ route('lessons.create') }}"
+                        @endif
                                 class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white my-2"><i
                                     class="bi bi-chevron-left"></i>ایجاد</a></li>
                     </ul>
@@ -164,6 +165,7 @@
                 </div>
             </li>
         @endif
+<!------  @if(Auth::user()->role == 'educational_supervisor' || Auth::user()->role == 'admin') ------------->
 
         <li class="border-top my-3"></li>
         <li class="mb-1">

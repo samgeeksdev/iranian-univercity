@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Redirect;
 use Exception;
 use misterspelik\LaravelPdf\Facades\Pdf;
 use Illuminate\Support\Facades\Response;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
+use Shuchkin\SimpleXLSXGen;
+
+
 class Schedule extends Controller
 {
     /**
@@ -41,58 +46,73 @@ class Schedule extends Controller
         return $pdf->download('schedule.pdf');
     }
 
-    public function Prepare_PDF(Request $request)
-    {
-        $classrooms = $this->filterData($request)->get();
-        $time_periods = TimePeriod::orderBy('id')->get();
-        $locations = Location::orderBy('number')->get();
-        // $locations = Location::whereIn('id', DB::table('classroom_location_term')->where('term_id', session('current_term_id'))->pluck('location_id'))->get();
+   
+public function Prepare_word(Request $request)
+{
+    $classrooms = $this->filterData($request)->get();
+    $time_periods = TimePeriod::orderBy('id')->get();
+    $locations = Location::orderBy('number')->get();
 
-        $pdf = Pdf::loadView('schedule.pdf', compact('classrooms', 'locations', 'time_periods'));
-        return $pdf;
+    $data = [];
+    $header = ["روز هفته"];
+    foreach ($locations as $location) {
+        $header[] = "کلاس " . $location->number;
     }
-    public function Prepare_word(Request $request){
-        $classrooms = $this->filterData($request)->get();
-        $time_periods = TimePeriod::orderBy('id')->get();
-        $locations = Location::orderBy('number')->get();
-        $headers=array(
-            'Content-type'=>'text/html',
-            'Content-Disposition'=>'attachment,Filename=report.docx'
-        );
-        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+    $data[] = $header;
 
-        $section = $phpWord->addSection();
-        $tableStyle = array(
-            'borderColor' => '006699',
-            'borderSize'  => 6,
-            'cellMargin'  => 50
-        );
-        $firstRowStyle = array('bgColor' => '66BBFF');
-        $phpWord->addTableStyle('myTable', $tableStyle, $firstRowStyle);
+    $week_days = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه'];
 
-        $table = $section->addTable([$tableStyle]);
-        $table->addRow(["تست"], ["تست2"]);
-         $table->addCell([$classrooms], [$locations]);
+    foreach ($week_days as $day) {
+        $row = [$day];
+        foreach ($time_periods as $time) {
+            $row[] = $time->period;
+            foreach ($locations as $location) {
+                $classes = $classrooms
+                    ->whereIn(
+                        'id',
+                        DB::table('classroom_location_term')
+                            ->where('location_id', $location->id)
+                            ->where('term_id', session('current_term_id'))
+                            ->pluck('classroom_id')
+                    )
+                    ->where('week_day', $day)
+                    ->where('time_period_id', $time->id);
 
-
-
-
-
-
-//
-//        $section->addText($description);
-//
-//
-        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        try {
-            $objWriter->save(storage_path('report.docx'));
-        } catch (Exception $e) {
+                $cellText = '';
+                foreach ($classes as $class) {
+                    if (request('show_lesson_group') && isset($class->lesson->group)) {
+                        $cellText .= $class->lesson->group . ' ';
+                    }
+                    if (request('show_lesson_name') && isset($class->lesson->name)) {
+                        $cellText .= $class->lesson->name . ' ';
+                    }
+                    if (request('show_professor_name') && isset($class->professor)) {
+                        $cellText .= $class->professor->name . ' ';
+                    }
+                    if (request('show_status') && isset($class->status)) {
+                        $cellText .= $class->status . ' ';
+                    }
+                    if (request('show_eg_name') && isset($class->educational_group)) {
+                        $cellText .= $class->educational_group->name . ' ';
+                    }
+                    if (request('show_entry_year') && isset($class->entry)) {
+                        $cellText .= $class->entry->year . ' ';
+                    }
+                    $cellText .= "\n";
+                }
+                $row[] = $cellText;
+            }
         }
-
-
-        return response()->download(storage_path('report.docx'));
-//        return Response::make($description,200, $headers);
+        $data[] = $row;
     }
+
+    $xlsx = SimpleXLSXGen::fromArray($data);
+    $filePath = storage_path('schedule.xlsx');
+    $xlsx->saveAs($filePath);
+
+    return response()->download($filePath)->deleteFileAfterSend(true);
+}
+
     public function filter(Request $request, $first_time = false)
     {
         $classrooms = $this->filterData($request)->get();
